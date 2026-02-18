@@ -1,8 +1,9 @@
-import { Home, CreditCard, ArrowLeftRight, Settings } from 'lucide-react';
+import { Home, CreditCard, ArrowLeftRight, Settings, Coins } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
   { icon: Home, label: 'Home', href: '/dashboard' },
+  { icon: Coins, label: 'Assets', href: '/assets' },
   { icon: CreditCard, label: 'Accounts', href: '/dashboard/accounts' },
   { icon: ArrowLeftRight, label: 'Transactions', href: '/dashboard/transactions' },
   { icon: Settings, label: 'Settings', href: '/dashboard/settings' },
