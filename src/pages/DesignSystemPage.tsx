@@ -306,12 +306,14 @@ function MotionDemo({ pattern }: { pattern: MotionPattern }) {
 
     const play = useCallback(() => {
         controls.stop()
-        controls.set(pattern.initial)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        controls.set(pattern.initial as any)
         requestAnimationFrame(() => requestAnimationFrame(() => {
             const transition = pattern.spring
                 ? { ...pattern.spring }
-                : { duration: pattern.durationMs / 1000, ease: pattern.ease }
-            controls.start({ ...pattern.animate, transition })
+                : { duration: pattern.durationMs / 1000, ease: pattern.ease as import("framer-motion").Easing }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            controls.start({ ...(pattern.animate as any), transition })
         }))
     }, [controls, pattern])
 
@@ -469,7 +471,7 @@ function RippleDemo() {
 
 function ToastDemo() {
     const [visible, setVisible] = useState(false)
-    const timerRef = useRef<ReturnType<typeof setTimeout>>()
+    const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
 
     const show = useCallback(() => {
         clearTimeout(timerRef.current)
@@ -798,7 +800,7 @@ function OrbitDemo() {
 function NumberFlipDemo() {
     const values = [0, 42, 1337, 99, 256]
     const [idx, setIdx] = useState(0)
-    const [prev, setPrev] = useState(values[0])
+    const [_prev, setPrev] = useState(values[0])
     const [curr, setCurr] = useState(values[0])
     const [animKey, setAnimKey] = useState(0)
 
