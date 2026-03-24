@@ -17,7 +17,6 @@ module.exports = {
   	extend: {
   		fontFamily: {
   			sans: [
-  				'TT Ripple"',
   				'Inter',
   				'Arial',
   				'sans-serif'
