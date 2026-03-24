@@ -1445,23 +1445,91 @@ export function DesignSystemPage() {
                             <section>
                                 <H2 className="mb-1">Tooltip</H2>
                                 <Body className="text-gray-500 mb-8">Contextual hints that appear on hover — used for icon buttons and truncated labels.</Body>
-                                <div className="flex flex-wrap gap-4 p-8 border border-gray-100 rounded-xl bg-white shadow-sm">
-                                    <TooltipProvider>
-                                        {[
-                                            { label: "Download", tip: "Export as CSV" },
-                                            { label: "Share", tip: "Copy link to report" },
-                                            { label: "Filter", tip: "Apply date range filter" },
-                                            { label: "Approve", tip: "Approve transfer — requires 2FA" },
-                                        ].map(item => (
-                                            <Tooltip key={item.label}>
-                                                <TooltipTrigger asChild>
-                                                    <Button variant="outline" size="sm">{item.label}</Button>
-                                                </TooltipTrigger>
-                                                <TooltipContent><p>{item.tip}</p></TooltipContent>
-                                            </Tooltip>
-                                        ))}
-                                    </TooltipProvider>
-                                </div>
+                                <TooltipProvider>
+                                    <div className="space-y-8">
+                                        {/* Placements */}
+                                        <div>
+                                            <H5 className="mb-4 text-gray-600">Placement</H5>
+                                            <div className="flex flex-wrap items-center gap-3 p-8 border border-gray-100 rounded-xl bg-gray-50">
+                                                {([
+                                                    { side: "top", label: "Top" },
+                                                    { side: "right", label: "Right" },
+                                                    { side: "bottom", label: "Bottom" },
+                                                    { side: "left", label: "Left" },
+                                                ] as const).map(({ side, label }) => (
+                                                    <Tooltip key={side}>
+                                                        <TooltipTrigger asChild>
+                                                            <Button variant="outline" size="sm">{label}</Button>
+                                                        </TooltipTrigger>
+                                                        <TooltipContent side={side}><p>Tooltip on {side}</p></TooltipContent>
+                                                    </Tooltip>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        {/* With icon buttons */}
+                                        <div>
+                                            <H5 className="mb-4 text-gray-600">Icon Buttons</H5>
+                                            <div className="flex flex-wrap items-center gap-3 p-8 border border-gray-100 rounded-xl bg-gray-50">
+                                                {[
+                                                    { label: "Download", tip: "Export as CSV" },
+                                                    { label: "Share", tip: "Copy link to report" },
+                                                    { label: "Filter", tip: "Apply date range filter" },
+                                                    { label: "Approve", tip: "Approve transfer — requires 2FA" },
+                                                ].map(item => (
+                                                    <Tooltip key={item.label}>
+                                                        <TooltipTrigger asChild>
+                                                            <Button variant="outline" size="sm">{item.label}</Button>
+                                                        </TooltipTrigger>
+                                                        <TooltipContent><p>{item.tip}</p></TooltipContent>
+                                                    </Tooltip>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        {/* On disabled elements */}
+                                        <div>
+                                            <H5 className="mb-4 text-gray-600">Disabled Elements</H5>
+                                            <div className="flex flex-wrap items-center gap-3 p-8 border border-gray-100 rounded-xl bg-gray-50">
+                                                <Tooltip>
+                                                    <TooltipTrigger asChild>
+                                                        <span tabIndex={0}>
+                                                            <Button disabled>Send Transfer</Button>
+                                                        </span>
+                                                    </TooltipTrigger>
+                                                    <TooltipContent><p>Complete KYC verification to unlock transfers</p></TooltipContent>
+                                                </Tooltip>
+                                                <Tooltip>
+                                                    <TooltipTrigger asChild>
+                                                        <span tabIndex={0}>
+                                                            <Button variant="outline" disabled>Export</Button>
+                                                        </span>
+                                                    </TooltipTrigger>
+                                                    <TooltipContent><p>Select at least one transaction to export</p></TooltipContent>
+                                                </Tooltip>
+                                            </div>
+                                        </div>
+
+                                        {/* On truncated text */}
+                                        <div>
+                                            <H5 className="mb-4 text-gray-600">Truncated Text</H5>
+                                            <div className="flex flex-col gap-2 p-8 border border-gray-100 rounded-xl bg-gray-50 max-w-xs">
+                                                {[
+                                                    "International Wire Transfer to Vendor A — Invoice #2024-0891",
+                                                    "Crypto Wallet 0x1a2b3c4d5e6f7890abcdef1234567890",
+                                                    "Quarterly Treasury Reconciliation Report Q4 2024",
+                                                ].map(text => (
+                                                    <Tooltip key={text}>
+                                                        <TooltipTrigger asChild>
+                                                            <p className="text-sm text-gray-700 truncate cursor-default">{text}</p>
+                                                        </TooltipTrigger>
+                                                        <TooltipContent className="max-w-xs"><p>{text}</p></TooltipContent>
+                                                    </Tooltip>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </TooltipProvider>
                             </section>
 
                             {/* ── Skeleton ── */}
