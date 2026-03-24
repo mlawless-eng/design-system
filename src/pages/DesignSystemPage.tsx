@@ -35,6 +35,58 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { FormCard, RlusdIcon } from "@/components/ui/form-card"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Slider } from "@/components/ui/slider"
+import { InputNumber } from "@/components/ui/input-number"
+import { Segmented } from "@/components/ui/segmented"
+import { DatePicker } from "@/components/ui/date-picker"
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp"
+import {
+    Command, CommandEmpty, CommandGroup, CommandInput,
+    CommandItem, CommandList, CommandSeparator,
+} from "@/components/ui/command"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
+import { Tag } from "@/components/ui/tag"
+import { Timeline } from "@/components/ui/timeline"
+import type { TimelineItem } from "@/components/ui/timeline"
+import { KpiCard } from "@/components/ui/kpi-card"
+import { EmptyState } from "@/components/ui/empty-state"
+import { DollarSign, ArrowUpRight, Wallet, Inbox, ChevronDown, Bold, Italic, Underline, AlignLeft, AlignCenter, AlignRight } from "lucide-react"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import { Calendar } from "@/components/ui/calendar"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import {
+    Breadcrumb, BreadcrumbItem, BreadcrumbLink,
+    BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import {
+    Pagination, PaginationContent, PaginationEllipsis, PaginationItem,
+    PaginationLink, PaginationNext, PaginationPrevious,
+} from "@/components/ui/pagination"
+import {
+    NavigationMenu, NavigationMenuContent, NavigationMenuItem,
+    NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu"
+import { Stepper } from "@/components/ui/stepper"
+import {
+    Drawer, DrawerClose, DrawerContent, DrawerDescription,
+    DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger,
+} from "@/components/ui/drawer"
+import {
+    Sheet, SheetClose, SheetContent, SheetDescription,
+    SheetFooter, SheetHeader, SheetTitle, SheetTrigger,
+} from "@/components/ui/sheet"
+import {
+    ContextMenu, ContextMenuContent, ContextMenuItem,
+    ContextMenuSeparator, ContextMenuTrigger,
+} from "@/components/ui/context-menu"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable"
+import { AspectRatio } from "@/components/ui/aspect-ratio"
+import { Toggle } from "@/components/ui/toggle"
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 
 /* ─── Color palette ─── */
 
@@ -1704,6 +1756,528 @@ export function DesignSystemPage() {
                                     <div className="flex flex-col items-center gap-2">
                                         <span className="text-blue-500"><Spinner size="md" /></span>
                                         <Caption className="text-gray-400">colored</Caption>
+                                    </div>
+                                </div>
+                            </section>
+
+                            {/* ═══════════════════════════════════
+                                DATA INPUT
+                                ═══════════════════════════════════ */}
+
+                            <section>
+                                <H2 className="mb-1">Radio Group</H2>
+                                <Body className="text-gray-500 mb-8">Single-choice selection from a list of options.</Body>
+                                <RadioGroup defaultValue="card" className="space-y-2">
+                                    {[
+                                        { value: "card", label: "Credit / Debit Card" },
+                                        { value: "wire", label: "Bank Wire Transfer" },
+                                        { value: "crypto", label: "Crypto Wallet" },
+                                    ].map(({ value, label }) => (
+                                        <div key={value} className="flex items-center gap-2">
+                                            <RadioGroupItem value={value} id={`radio-${value}`} />
+                                            <Label htmlFor={`radio-${value}`}>{label}</Label>
+                                        </div>
+                                    ))}
+                                </RadioGroup>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Slider</H2>
+                                <Body className="text-gray-500 mb-8">Range input for selecting a value within a defined range.</Body>
+                                <div className="space-y-6 max-w-md">
+                                    <Slider defaultValue={[40]} max={100} step={1} />
+                                    <Slider defaultValue={[20, 70]} max={100} step={1} />
+                                </div>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Input Number</H2>
+                                <Body className="text-gray-500 mb-8">Numeric input with increment/decrement controls, min/max clamping.</Body>
+                                <div className="flex flex-wrap gap-6">
+                                    <div className="space-y-1">
+                                        <Label>Amount (USDC)</Label>
+                                        <InputNumber defaultValue={100} step={10} min={0} max={10000} />
+                                    </div>
+                                    <div className="space-y-1">
+                                        <Label>Percentage</Label>
+                                        <InputNumber defaultValue={25} step={1} min={0} max={100} precision={1} />
+                                    </div>
+                                    <div className="space-y-1">
+                                        <Label>Disabled</Label>
+                                        <InputNumber defaultValue={50} disabled />
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Segmented Control</H2>
+                                <Body className="text-gray-500 mb-8">Mutually exclusive option group — exactly one active at a time.</Body>
+                                <div className="space-y-4">
+                                    <Segmented defaultValue="7d" options={[
+                                        { label: "24h", value: "24h" },
+                                        { label: "7d", value: "7d" },
+                                        { label: "30d", value: "30d" },
+                                        { label: "1y", value: "1y" },
+                                    ]} />
+                                    <Segmented defaultValue="list" options={[
+                                        { label: "List", value: "list" },
+                                        { label: "Grid", value: "grid" },
+                                        { label: "Chart", value: "chart", disabled: true },
+                                    ]} />
+                                </div>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Date Picker</H2>
+                                <Body className="text-gray-500 mb-8">Calendar popover for selecting a single date.</Body>
+                                <div className="flex flex-wrap gap-4">
+                                    <DatePicker placeholder="Select transaction date" />
+                                    <DatePicker defaultValue={new Date()} />
+                                    <DatePicker disabled placeholder="Disabled" />
+                                </div>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">OTP Input</H2>
+                                <Body className="text-gray-500 mb-8">One-time password input for authentication flows.</Body>
+                                <InputOTP maxLength={6}>
+                                    <InputOTPGroup>
+                                        <InputOTPSlot index={0} />
+                                        <InputOTPSlot index={1} />
+                                        <InputOTPSlot index={2} />
+                                        <InputOTPSlot index={3} />
+                                        <InputOTPSlot index={4} />
+                                        <InputOTPSlot index={5} />
+                                    </InputOTPGroup>
+                                </InputOTP>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Command Palette</H2>
+                                <Body className="text-gray-500 mb-8">Searchable command menu — also composable as a combobox.</Body>
+                                <div className="border border-gray-100 rounded-xl overflow-hidden max-w-sm shadow-sm">
+                                    <Command>
+                                        <CommandInput placeholder="Search transactions, accounts…" />
+                                        <CommandList>
+                                            <CommandEmpty>No results found.</CommandEmpty>
+                                            <CommandGroup heading="Accounts">
+                                                <CommandItem>Treasury Main</CommandItem>
+                                                <CommandItem>Operating Account</CommandItem>
+                                                <CommandItem>Reserve Fund</CommandItem>
+                                            </CommandGroup>
+                                            <CommandSeparator />
+                                            <CommandGroup heading="Actions">
+                                                <CommandItem>New Transfer</CommandItem>
+                                                <CommandItem>Export Report</CommandItem>
+                                            </CommandGroup>
+                                        </CommandList>
+                                    </Command>
+                                </div>
+                            </section>
+
+                            {/* ═══════════════════════════════════
+                                DATA DISPLAY
+                                ═══════════════════════════════════ */}
+
+                            <section>
+                                <H2 className="mb-1">Accordion</H2>
+                                <Body className="text-gray-500 mb-8">Collapsible content panels for progressive disclosure.</Body>
+                                <Accordion type="single" collapsible className="max-w-lg border border-gray-100 rounded-xl bg-white shadow-sm px-4">
+                                    {[
+                                        { value: "fees", trigger: "Transaction Fees", content: "Fees are calculated as 0.1% of the transaction amount, with a minimum of $1 and a maximum of $50." },
+                                        { value: "limits", trigger: "Transfer Limits", content: "Standard accounts can transfer up to $50,000 per day. Verified accounts have no daily limit." },
+                                        { value: "settlement", trigger: "Settlement Times", content: "Domestic transfers settle within 1 business day. International transfers take 2–5 business days." },
+                                    ].map(({ value, trigger, content }) => (
+                                        <AccordionItem key={value} value={value}>
+                                            <AccordionTrigger>{trigger}</AccordionTrigger>
+                                            <AccordionContent>{content}</AccordionContent>
+                                        </AccordionItem>
+                                    ))}
+                                </Accordion>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Popover</H2>
+                                <Body className="text-gray-500 mb-8">Floating contextual content anchored to a trigger element.</Body>
+                                <Popover>
+                                    <PopoverTrigger asChild>
+                                        <Button variant="outline">What is APY?</Button>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-72">
+                                        <H5 className="mb-1">Annual Percentage Yield</H5>
+                                        <Body className="text-gray-500 text-sm">APY reflects the total interest earned in a year, including compound interest. Higher APY = more earnings on your deposits.</Body>
+                                    </PopoverContent>
+                                </Popover>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Hover Card</H2>
+                                <Body className="text-gray-500 mb-8">Rich preview shown on hover — useful for user or asset previews.</Body>
+                                <HoverCard>
+                                    <HoverCardTrigger asChild>
+                                        <Button variant="link">@treasury.main</Button>
+                                    </HoverCardTrigger>
+                                    <HoverCardContent className="w-64">
+                                        <div className="flex gap-3">
+                                            <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-500 font-semibold shrink-0">T</div>
+                                            <div>
+                                                <p className="text-sm font-semibold text-gray-900">Treasury Main</p>
+                                                <p className="text-xs text-gray-500 mt-0.5">Primary operating account · $2.8M balance</p>
+                                            </div>
+                                        </div>
+                                    </HoverCardContent>
+                                </HoverCard>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Tag / Chip</H2>
+                                <Body className="text-gray-500 mb-8">Compact inline labels for categorization and filtering.</Body>
+                                <div className="space-y-4">
+                                    <div className="flex flex-wrap gap-2">
+                                        {(["default", "blue", "green", "error", "orange", "purple"] as const).map(v => (
+                                            <Tag key={v} variant={v}>{v}</Tag>
+                                        ))}
+                                    </div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {["USDC", "ETH", "BTC", "Treasury"].map(t => (
+                                            <Tag key={t} variant="blue" onRemove={() => {}}>{t}</Tag>
+                                        ))}
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Timeline</H2>
+                                <Body className="text-gray-500 mb-8">Vertical event history with status indicators.</Body>
+                                <Timeline items={[
+                                    { id: "1", title: "Payment initiated", description: "Transfer of $50,000 to Vendor A", timestamp: "9:00 AM", status: "complete" },
+                                    { id: "2", title: "Compliance review", description: "AML check passed", timestamp: "9:15 AM", status: "complete" },
+                                    { id: "3", title: "Bank processing", description: "Awaiting bank confirmation", timestamp: "9:30 AM", status: "active" },
+                                    { id: "4", title: "Settlement", description: "Funds released to recipient", timestamp: "Pending", status: "default" },
+                                    { id: "5", title: "Failed attempt", description: "Insufficient funds error", timestamp: "8:45 AM", status: "error" },
+                                ] satisfies TimelineItem[]} />
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">KPI Card</H2>
+                                <Body className="text-gray-500 mb-8">Statistic display for financial metrics with optional trend indicator.</Body>
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                    <KpiCard label="Total Balance" value="$2,847,391" trend={{ direction: "up", label: "+12.4% this month" }} icon={<DollarSign className="w-5 h-5" />} />
+                                    <KpiCard label="Outflows" value="$341,200" trend={{ direction: "down", label: "-3.1% this month" }} icon={<ArrowUpRight className="w-5 h-5" />} />
+                                    <KpiCard label="Reserves" value="$1,200,000" trend={{ direction: "neutral", label: "No change" }} icon={<Wallet className="w-5 h-5" />} />
+                                </div>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Empty State</H2>
+                                <Body className="text-gray-500 mb-8">Zero-state screen for when there is no data to display.</Body>
+                                <div className="border border-gray-100 rounded-xl bg-white shadow-sm">
+                                    <EmptyState
+                                        icon={<Inbox className="w-full h-full" />}
+                                        title="No transactions yet"
+                                        description="Once you make your first transfer, it will appear here."
+                                        action={{ label: "Make a Transfer", onClick: () => {} }}
+                                    />
+                                </div>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Carousel</H2>
+                                <Body className="text-gray-500 mb-8">Scrollable slide container for featured content.</Body>
+                                <div className="max-w-sm">
+                                    <Carousel>
+                                        <CarouselContent>
+                                            {["Bitcoin", "Ethereum", "USDC", "Ripple"].map((asset, i) => (
+                                                <CarouselItem key={i}>
+                                                    <div className="border border-gray-100 rounded-xl bg-white shadow-sm p-8 text-center">
+                                                        <p className="text-sm text-gray-500 mb-1">Asset</p>
+                                                        <p className="text-2xl font-bold text-gray-900">{asset}</p>
+                                                    </div>
+                                                </CarouselItem>
+                                            ))}
+                                        </CarouselContent>
+                                        <CarouselPrevious />
+                                        <CarouselNext />
+                                    </Carousel>
+                                </div>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Calendar</H2>
+                                <Body className="text-gray-500 mb-8">Date navigation component — used standalone or inside a Date Picker.</Body>
+                                <div className="border border-gray-100 rounded-xl bg-white shadow-sm w-fit">
+                                    <Calendar mode="single" />
+                                </div>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Scroll Area</H2>
+                                <Body className="text-gray-500 mb-8">Custom-styled scrollable container.</Body>
+                                <ScrollArea className="h-48 w-72 border border-gray-100 rounded-xl bg-white shadow-sm p-4">
+                                    {Array.from({ length: 20 }, (_, i) => (
+                                        <div key={i} className="flex justify-between py-2 border-b border-gray-50 last:border-0">
+                                            <span className="text-sm text-gray-700">Transaction #{i + 1}</span>
+                                            <span className="text-sm text-gray-500">${((i + 1) * 1337).toLocaleString()}</span>
+                                        </div>
+                                    ))}
+                                </ScrollArea>
+                            </section>
+
+                            {/* ═══════════════════════════════════
+                                NAVIGATION
+                                ═══════════════════════════════════ */}
+
+                            <section>
+                                <H2 className="mb-1">Breadcrumb</H2>
+                                <Body className="text-gray-500 mb-8">Shows the user's location within a navigation hierarchy.</Body>
+                                <Breadcrumb>
+                                    <BreadcrumbList>
+                                        <BreadcrumbItem><BreadcrumbLink href="#">Dashboard</BreadcrumbLink></BreadcrumbItem>
+                                        <BreadcrumbSeparator />
+                                        <BreadcrumbItem><BreadcrumbLink href="#">Accounts</BreadcrumbLink></BreadcrumbItem>
+                                        <BreadcrumbSeparator />
+                                        <BreadcrumbItem><BreadcrumbPage>Treasury Main</BreadcrumbPage></BreadcrumbItem>
+                                    </BreadcrumbList>
+                                </Breadcrumb>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Pagination</H2>
+                                <Body className="text-gray-500 mb-8">Page navigation for large data sets.</Body>
+                                <Pagination>
+                                    <PaginationContent>
+                                        <PaginationItem><PaginationPrevious href="#" /></PaginationItem>
+                                        <PaginationItem><PaginationLink href="#">1</PaginationLink></PaginationItem>
+                                        <PaginationItem><PaginationLink href="#" isActive>2</PaginationLink></PaginationItem>
+                                        <PaginationItem><PaginationLink href="#">3</PaginationLink></PaginationItem>
+                                        <PaginationItem><PaginationEllipsis /></PaginationItem>
+                                        <PaginationItem><PaginationLink href="#">12</PaginationLink></PaginationItem>
+                                        <PaginationItem><PaginationNext href="#" /></PaginationItem>
+                                    </PaginationContent>
+                                </Pagination>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Navigation Menu</H2>
+                                <Body className="text-gray-500 mb-8">Accessible top-level navigation with dropdown panels.</Body>
+                                <NavigationMenu>
+                                    <NavigationMenuList>
+                                        <NavigationMenuItem>
+                                            <NavigationMenuTrigger>Accounts</NavigationMenuTrigger>
+                                            <NavigationMenuContent>
+                                                <ul className="grid w-48 gap-1 p-2">
+                                                    {["Treasury Main", "Operating", "Reserve Fund"].map(item => (
+                                                        <li key={item}><NavigationMenuLink className="block px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-50 cursor-pointer">{item}</NavigationMenuLink></li>
+                                                    ))}
+                                                </ul>
+                                            </NavigationMenuContent>
+                                        </NavigationMenuItem>
+                                        <NavigationMenuItem>
+                                            <NavigationMenuTrigger>Reports</NavigationMenuTrigger>
+                                            <NavigationMenuContent>
+                                                <ul className="grid w-48 gap-1 p-2">
+                                                    {["P&L", "Cash Flow", "Audit Log"].map(item => (
+                                                        <li key={item}><NavigationMenuLink className="block px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-50 cursor-pointer">{item}</NavigationMenuLink></li>
+                                                    ))}
+                                                </ul>
+                                            </NavigationMenuContent>
+                                        </NavigationMenuItem>
+                                    </NavigationMenuList>
+                                </NavigationMenu>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Stepper</H2>
+                                <Body className="text-gray-500 mb-8">Multi-step progress indicator for sequential flows.</Body>
+                                <div className="space-y-8">
+                                    <Stepper steps={[
+                                        { label: "Account", description: "Details", status: "complete" },
+                                        { label: "KYC", description: "Identity", status: "complete" },
+                                        { label: "Funding", description: "Deposit", status: "active" },
+                                        { label: "Review", description: "Confirm", status: "pending" },
+                                    ]} />
+                                    <Stepper steps={[
+                                        { label: "Submit", status: "complete" },
+                                        { label: "Validate", status: "error" },
+                                        { label: "Approve", status: "pending" },
+                                    ]} />
+                                </div>
+                            </section>
+
+                            {/* ═══════════════════════════════════
+                                OVERLAYS
+                                ═══════════════════════════════════ */}
+
+                            <section>
+                                <H2 className="mb-1">Drawer</H2>
+                                <Body className="text-gray-500 mb-8">Bottom sheet panel — ideal for mobile detail views.</Body>
+                                <Drawer>
+                                    <DrawerTrigger asChild><Button variant="outline">Open Drawer</Button></DrawerTrigger>
+                                    <DrawerContent>
+                                        <DrawerHeader>
+                                            <DrawerTitle>Transaction Details</DrawerTitle>
+                                            <DrawerDescription>Review the details of this transaction before confirming.</DrawerDescription>
+                                        </DrawerHeader>
+                                        <div className="px-4 py-2 space-y-2">
+                                            {[["Amount", "$50,000.00"], ["Recipient", "Vendor A"], ["Reference", "INV-2024-001"], ["Status", "Pending"]].map(([k, v]) => (
+                                                <div key={k} className="flex justify-between py-2 border-b border-gray-50">
+                                                    <span className="text-sm text-gray-500">{k}</span>
+                                                    <span className="text-sm font-medium text-gray-900">{v}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <DrawerFooter>
+                                            <Button>Confirm Transfer</Button>
+                                            <DrawerClose asChild><Button variant="outline">Cancel</Button></DrawerClose>
+                                        </DrawerFooter>
+                                    </DrawerContent>
+                                </Drawer>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Sheet</H2>
+                                <Body className="text-gray-500 mb-8">Side panel that slides in from the edge — for settings and filters.</Body>
+                                <div className="flex gap-3">
+                                    <Sheet>
+                                        <SheetTrigger asChild><Button variant="outline">Open Right</Button></SheetTrigger>
+                                        <SheetContent>
+                                            <SheetHeader>
+                                                <SheetTitle>Filter Transactions</SheetTitle>
+                                                <SheetDescription>Narrow down transactions by date, type, and amount.</SheetDescription>
+                                            </SheetHeader>
+                                            <div className="py-4 space-y-4">
+                                                <div className="space-y-2">
+                                                    <Label>Date Range</Label>
+                                                    <DatePicker placeholder="Start date" />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label>Type</Label>
+                                                    <Select>
+                                                        <SelectTrigger><SelectValue placeholder="All types" /></SelectTrigger>
+                                                        <SelectContent>
+                                                            <SelectItem value="transfer">Transfer</SelectItem>
+                                                            <SelectItem value="deposit">Deposit</SelectItem>
+                                                            <SelectItem value="withdrawal">Withdrawal</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                </div>
+                                            </div>
+                                            <SheetFooter><SheetClose asChild><Button>Apply Filters</Button></SheetClose></SheetFooter>
+                                        </SheetContent>
+                                    </Sheet>
+                                    <Sheet>
+                                        <SheetTrigger asChild><Button variant="outline">Open Left</Button></SheetTrigger>
+                                        <SheetContent side="left">
+                                            <SheetHeader><SheetTitle>Navigation</SheetTitle></SheetHeader>
+                                        </SheetContent>
+                                    </Sheet>
+                                </div>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Context Menu</H2>
+                                <Body className="text-gray-500 mb-8">Right-click menu with contextual actions.</Body>
+                                <ContextMenu>
+                                    <ContextMenuTrigger>
+                                        <div className="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center text-sm text-gray-400 cursor-default select-none">
+                                            Right-click here
+                                        </div>
+                                    </ContextMenuTrigger>
+                                    <ContextMenuContent>
+                                        <ContextMenuItem>View Details</ContextMenuItem>
+                                        <ContextMenuItem>Copy Reference</ContextMenuItem>
+                                        <ContextMenuItem>Download Receipt</ContextMenuItem>
+                                        <ContextMenuSeparator />
+                                        <ContextMenuItem className="text-orange-500">Cancel Transaction</ContextMenuItem>
+                                    </ContextMenuContent>
+                                </ContextMenu>
+                            </section>
+
+                            {/* ═══════════════════════════════════
+                                LAYOUT
+                                ═══════════════════════════════════ */}
+
+                            <section>
+                                <H2 className="mb-1">Collapsible</H2>
+                                <Body className="text-gray-500 mb-8">Toggle content visibility without the full styling of Accordion.</Body>
+                                <Collapsible className="max-w-sm border border-gray-100 rounded-xl bg-white shadow-sm">
+                                    <CollapsibleTrigger className="flex items-center justify-between w-full px-4 py-3 text-sm font-medium text-gray-900 hover:bg-gray-50 rounded-xl transition-colors">
+                                        Advanced Settings
+                                        <ChevronDown className="w-4 h-4 text-gray-400" />
+                                    </CollapsibleTrigger>
+                                    <CollapsibleContent className="px-4 pb-4 space-y-2 text-sm text-gray-500">
+                                        <p>Slippage tolerance: 0.5%</p>
+                                        <p>Gas price: Standard</p>
+                                        <p>Transaction deadline: 20 minutes</p>
+                                    </CollapsibleContent>
+                                </Collapsible>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Resizable Panels</H2>
+                                <Body className="text-gray-500 mb-8">Draggable split-pane layout for adjustable views.</Body>
+                                <div className="border border-gray-100 rounded-xl overflow-hidden shadow-sm h-40">
+                                    <ResizablePanelGroup direction="horizontal">
+                                        <ResizablePanel defaultSize={40}>
+                                            <div className="flex h-full items-center justify-center bg-gray-50 text-sm text-gray-500">Sidebar</div>
+                                        </ResizablePanel>
+                                        <ResizableHandle withHandle />
+                                        <ResizablePanel defaultSize={60}>
+                                            <div className="flex h-full items-center justify-center bg-white text-sm text-gray-500">Main Content</div>
+                                        </ResizablePanel>
+                                    </ResizablePanelGroup>
+                                </div>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Aspect Ratio</H2>
+                                <Body className="text-gray-500 mb-8">Constrains child content to a consistent width/height ratio.</Body>
+                                <div className="flex gap-6 flex-wrap">
+                                    {([[16, 9], [4, 3], [1, 1]] as [number, number][]).map(([w, h]) => (
+                                        <div key={`${w}:${h}`} className="w-48">
+                                            <AspectRatio ratio={w / h} className="bg-gray-50 border border-gray-100 rounded-xl overflow-hidden">
+                                                <div className="flex items-center justify-center h-full text-sm text-gray-400">{w}:{h}</div>
+                                            </AspectRatio>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+
+                            {/* ═══════════════════════════════════
+                                TOGGLE
+                                ═══════════════════════════════════ */}
+
+                            <section>
+                                <H2 className="mb-1">Toggle</H2>
+                                <Body className="text-gray-500 mb-8">A pressable button that toggles between on and off states.</Body>
+                                <div className="flex gap-3 flex-wrap">
+                                    <Toggle aria-label="Bold"><Bold className="w-4 h-4" /></Toggle>
+                                    <Toggle aria-label="Italic"><Italic className="w-4 h-4" /></Toggle>
+                                    <Toggle aria-label="Underline"><Underline className="w-4 h-4" /></Toggle>
+                                    <Toggle variant="outline" aria-label="Outline Bold"><Bold className="w-4 h-4" /></Toggle>
+                                    <Toggle disabled aria-label="Disabled"><Bold className="w-4 h-4" /></Toggle>
+                                </div>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Toggle Group</H2>
+                                <Body className="text-gray-500 mb-8">A set of toggles — supports single or multiple selection.</Body>
+                                <div className="space-y-4">
+                                    <div className="space-y-1">
+                                        <Caption className="text-gray-400">Single (text alignment)</Caption>
+                                        <ToggleGroup type="single" defaultValue="left">
+                                            <ToggleGroupItem value="left" aria-label="Left"><AlignLeft className="w-4 h-4" /></ToggleGroupItem>
+                                            <ToggleGroupItem value="center" aria-label="Center"><AlignCenter className="w-4 h-4" /></ToggleGroupItem>
+                                            <ToggleGroupItem value="right" aria-label="Right"><AlignRight className="w-4 h-4" /></ToggleGroupItem>
+                                        </ToggleGroup>
+                                    </div>
+                                    <div className="space-y-1">
+                                        <Caption className="text-gray-400">Multiple (text formatting)</Caption>
+                                        <ToggleGroup type="multiple">
+                                            <ToggleGroupItem value="bold" aria-label="Bold"><Bold className="w-4 h-4" /></ToggleGroupItem>
+                                            <ToggleGroupItem value="italic" aria-label="Italic"><Italic className="w-4 h-4" /></ToggleGroupItem>
+                                            <ToggleGroupItem value="underline" aria-label="Underline"><Underline className="w-4 h-4" /></ToggleGroupItem>
+                                        </ToggleGroup>
                                     </div>
                                 </div>
                             </section>
