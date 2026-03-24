@@ -1,28 +1,21 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import LoginPage from '@/pages/LoginPage';
-import OnboardingPage from '@/pages/OnboardingPage';
-import DashboardPage from '@/pages/DashboardPage';
-import AssetsPage from '@/pages/AssetsPage';
-import ProtectedRoute from '@/components/layout/ProtectedRoute';
+import { Toaster } from "@/components/ui/sonner";
+import { Layout } from "@/components/layout/Layout";
+import { DevReviewPage } from "@/pages/DevReviewPage";
+import { DesignSystemPage } from "@/pages/DesignSystemPage";
 
-function App() {
+export default function App() {
+  const path = window.location.pathname;
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" element={<LoginPage />} />
-
-        {/* Protected routes */}
-        <Route element={<ProtectedRoute />}>
-          <Route path="/onboarding" element={<OnboardingPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/assets" element={<AssetsPage />} />
-        </Route>
-
-        <Route path="*" element={<Navigate to="/login" />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <Toaster />
+      {path === '/design-system' ? (
+        <DesignSystemPage />
+      ) : (
+        <Layout>
+          <DevReviewPage />
+        </Layout>
+      )}
+    </>
   );
 }
-
-export default App;
