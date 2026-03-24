@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react"
 import { toast } from "sonner"
+import { Progress } from "@/components/ui/progress"
+import { Spinner } from "@/components/ui/spinner"
 import {
     motion,
     AnimatePresence,
@@ -1670,6 +1672,39 @@ export function DesignSystemPage() {
                                     <Button variant="outline" onClick={() => toast.warning("Low balance warning")}>Warning</Button>
                                     <Button variant="outline" onClick={() => toast.loading("Processing…")}>Loading</Button>
                                     <Button variant="outline" onClick={() => toast("Event created", { description: "Monday, January 3rd at 6:00pm", action: { label: "Undo", onClick: () => {} } })}>With Action</Button>
+                                </div>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Progress Bar</H2>
+                                <Body className="text-gray-500 mb-8">Communicates completion status of a task or process.</Body>
+                                <div className="space-y-4 max-w-md">
+                                    {[10, 33, 66, 100].map(v => (
+                                        <div key={v} className="space-y-1">
+                                            <div className="flex justify-between">
+                                                <Caption className="text-gray-500">Progress</Caption>
+                                                <Caption className="text-gray-500">{v}%</Caption>
+                                            </div>
+                                            <Progress value={v} />
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+
+                            <section>
+                                <H2 className="mb-1">Spinner</H2>
+                                <Body className="text-gray-500 mb-8">Animated loading indicator — inherits color from context.</Body>
+                                <div className="flex items-center gap-8">
+                                    {(["sm", "md", "lg"] as const).map(s => (
+                                        <div key={s} className="flex flex-col items-center gap-2">
+                                            <Spinner size={s} />
+                                            <Caption className="text-gray-400">{s}</Caption>
+                                        </div>
+                                    ))}
+                                    <div className="flex flex-col items-center gap-2">
+                                        <span className="text-blue-500"><Spinner size="md" /></span>
+                                        <Caption className="text-gray-400">colored</Caption>
+                                    </div>
                                 </div>
                             </section>
 
