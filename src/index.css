@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,47 +7,124 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 222 20% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 222 20% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
+    --popover-foreground: 222 20% 10%;
+
+    /* Primary = Blue 500 #006AFF */
+    --primary: 218 100% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary = Blue 100 #F2FAFF */
+    --secondary: 204 100% 97%;
+    --secondary-foreground: 218 100% 50%;
+
+    --muted: 220 13% 96%;
+    --muted-foreground: 218 18% 50%;
+
+    --accent: 204 100% 97%;
+    --accent-foreground: 218 100% 50%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 11% 90%;
+    --input: 220 11% 90%;
+    --ring: 218 100% 50%;
+    --radius: 0.25rem;
+
+    /* ================================================
+       RIPPLE FOUNDATION LIBRARY — COLOR 2025
+       Source: figma.com/design/RrrYFiElth1dv0mjwKnG9H
+       ================================================ */
+
+    /* PRIMARY — Gray Scale */
+    --gray-25: #F8F8F8;
+    --gray-50: #F2F2F3;
+    --gray-100: #E4E5E7;
+    --gray-200: #C9CBCF;
+    --gray-300: #ACB1B9;
+    --gray-400: #8F96A3;
+    --gray-500: #707A8F;
+    --gray-600: #5B6074;
+    --gray-700: #404759;
+    --gray-800: #2A2F3C;
+    --gray-900: #14171F;
+
+    /* PRIMARY — Blue Scale */
+    --blue-100: #F2FAFF;
+    --blue-200: #B5DFFF;
+    --blue-300: #78BEFF;
+    --blue-400: #3B96FF;
+    --blue-500: #006AFF;
+    --blue-600: #004BCC;
+    --blue-700: #003D99;
+    --blue-800: #001B66;
+    --blue-900: #000B33;
+
+    /* SECONDARY — Green Scale */
+    --green-100: #BDF5EF;
+    --green-200: #7AE0D6;
+    --green-300: #009994;
+    --green-400: #05696D;
+    --green-500: #09262B;
+
+    /* SECONDARY — Purple Scale */
+    --purple-100: #D1D5FF;
+    --purple-200: #A19DFF;
+    --purple-300: #6C47FF;
+    --purple-400: #4417BF;
+    --purple-500: #2B0160;
+
+    /* SECONDARY — Pink Scale */
+    --pink-100: #E9DEFF;
+    --pink-200: #D191FF;
+    --pink-300: #C247FF;
+    --pink-400: #7B099E;
+    --pink-500: #39003D;
+
+    /* SECONDARY — Orange Scale */
+    --orange-100: #FFDCD0;
+    --orange-200: #FEB9A7;
+    --orange-300: #FF7F66;
+    --orange-400: #CB4526;
+    --orange-500: #471200;
+
+    /* Layout-specific mappings */
+    --sidebar-bg: 220 20% 98%;
+    --header-bg: #14171F;
+    --header-fg: #FFFFFF;
+    --table-header-bg: #006AFF;
+    --table-header-fg: #FFFFFF;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --background: 222 20% 10%;
+    --foreground: 220 13% 96%;
+    --card: 222 20% 12%;
+    --card-foreground: 220 13% 96%;
+    --popover: 222 20% 12%;
+    --popover-foreground: 220 13% 96%;
+    --primary: 218 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 222 20% 18%;
+    --secondary-foreground: 220 13% 96%;
+    --muted: 222 20% 18%;
+    --muted-foreground: 218 18% 60%;
+    --accent: 222 20% 18%;
+    --accent-foreground: 220 13% 96%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 222 20% 22%;
+    --input: 222 20% 22%;
+    --ring: 218 100% 50%;
+    --sidebar-bg: 222 20% 12%;
+    --header-bg: #000B33;
+    --header-fg: #FFFFFF;
+    --table-header-bg: #004BCC;
+    --table-header-fg: #FFFFFF;
   }
 }
 
@@ -53,6 +132,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }

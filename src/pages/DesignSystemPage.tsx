@@ -1182,7 +1182,6 @@ export function DesignSystemPage() {
                         {activeTab === "foundation" ? (
                             <motion.div key="foundation-hero" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.25 }}>
                                 <Display className="text-white mb-2">Foundation</Display>
-                                <BodyLarge className="text-gray-400 max-w-xl">Colors, typography, and component tokens built from the Ripple Foundation Library Figma file.</BodyLarge>
                             </motion.div>
                         ) : (
                             <motion.div key="motion-hero" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.25 }}>

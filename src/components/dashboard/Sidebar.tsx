@@ -13,7 +13,7 @@ export default function Sidebar() {
   const currentPath = window.location.pathname;
 
   return (
-    <aside className="w-60 border-r bg-gray-50 p-4">
+    <aside className="w-60 border-r-2 border-foreground bg-sidebar p-4">
       <nav className="space-y-1">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -24,10 +24,10 @@ export default function Sidebar() {
               key={item.href}
               href={item.href}
               className={cn(
-                'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+                'flex items-center gap-3 px-3 py-2 rounded-sm border-2 text-sm font-bold transition-colors',
                 isActive
-                  ? 'bg-blue-50 text-blue-600'
-                  : 'text-gray-700 hover:bg-gray-100'
+                  ? 'border-foreground bg-foreground text-background'
+                  : 'border-transparent text-foreground hover:border-foreground hover:bg-accent'
               )}
             >
               <Icon className="h-5 w-5" />

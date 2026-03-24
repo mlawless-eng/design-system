@@ -14,9 +14,9 @@ export default function Header() {
   };
 
   return (
-    <header className="h-16 border-b bg-white flex items-center justify-between px-6">
+    <header className="h-16 border-b-2 border-foreground bg-background flex items-center justify-between px-6">
       <div className="flex items-center gap-4">
-        <div className="text-xl font-bold text-blue-600">ripple treasury</div>
+        <div className="text-xl font-bold text-foreground">[ ripple treasury ]</div>
         <div className="text-sm text-muted-foreground">
           <span className="text-foreground">Dashboard</span>
         </div>
