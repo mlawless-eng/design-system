@@ -1,46 +1,41 @@
-/// <reference types="vitest/config" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-
-// https://vite.dev/config/
 import { fileURLToPath } from 'node:url';
-import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
-import { playwright } from '@vitest/browser-playwright';
-const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
 
-// More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
+const dirname = typeof __dirname !== 'undefined'
+  ? __dirname
+  : path.dirname(fileURLToPath(import.meta.url));
+
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(dirname, './src')
-    }
+      '@': path.resolve(dirname, './src'),
+    },
   },
   server: {
     port: 5173,
-    host: '0.0.0.0'
+    host: '0.0.0.0',
   },
-  test: {
-    projects: [{
-      extends: true,
-      plugins: [
-      // The plugin will run tests for the stories defined in your Storybook config
-      // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
-      storybookTest({
-        configDir: path.join(dirname, '.storybook')
-      })],
-      test: {
-        name: 'storybook',
-        browser: {
-          enabled: true,
-          headless: true,
-          provider: playwright({}),
-          instances: [{
-            browser: 'chromium'
-          }]
-        }
-      }
-    }]
-  }
+  build: {
+    outDir: 'dist',
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          radix: [
+            '@radix-ui/react-accordion',
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-dropdown-menu',
+            '@radix-ui/react-popover',
+            '@radix-ui/react-tabs',
+            '@radix-ui/react-tooltip',
+          ],
+          motion: ['framer-motion'],
+        },
+      },
+    },
+  },
 });

@@ -1,11 +1,12 @@
 run = "npm install && npm run dev"
 entrypoint = "src/main.tsx"
-hidden = [".config", "package-lock.json", "node_modules"]
+hidden = [".config", "package-lock.json", "node_modules", "dist"]
 
 [nix]
-channel = "stable-23_11"
+channel = "stable-24_05"
 
 [env]
+NODE_ENV = "development"
 PATH = "/home/runner/$REPL_SLUG/.config/npm/node_global/bin:/home/runner/$REPL_SLUG/node_modules/.bin"
 
 [packager]
@@ -16,5 +17,5 @@ packageSearch = true
 guessImports = true
 
 [deployment]
-run = ["sh", "-c", "npm install && npm run build && npx serve dist"]
+run = ["sh", "-c", "npm install && npm run build && npm run start"]
 deploymentTarget = "cloudrun"
